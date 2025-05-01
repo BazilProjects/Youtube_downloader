@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal Video Downloader</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
+  <style>
+    /* Base */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #f0f4f8; color: #333; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    h1, h2, h3, h4 { margin: 0; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; }
+
+    /* Navbar */
+    nav { background: #1a202c; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    nav .logo { color: #fff; font-size: 1.5rem; font-weight: 700; }
+    nav ul { list-style: none; display: flex; gap: 1rem; }
+    nav ul li a { color: #cbd5e0; padding: 0.5rem 1rem; border-radius: 4px; transition: background 0.3s; }
+    nav ul li a:hover { background: #2d3748; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 4rem 2rem; background: linear-gradient(135deg, #4caf50 0%, #2d3748 100%); color: #fff; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; margin-bottom: 2rem; }
+    .hero button { background: #fff; color: #2d3748; border: none; padding: 0.75rem 2rem; font-size: 1rem; border-radius: 6px; font-weight: 600; transition: transform 0.2s; }
+    .hero button:hover { transform: scale(1.05); }
+
+    /* Container */
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+
+    /* Features */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .feature-card { background: #fff; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s; }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-card h3 { margin-bottom: 0.5rem; color: #2d3748; }
+    .feature-card p { color: #4a5568; }
+
+    /* Sample Sites Accordion */
+    .accordion { margin-top: 3rem; }
+    .accordion-item { background: #fff; border-radius: 6px; margin-bottom: 1rem; overflow: hidden; }
+    .accordion-header { padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .accordion-header h4 { font-size: 1rem; color: #2d3748; }
+    .accordion-content { max-height: 0; padding: 0 1.5rem; color: #4a5568; transition: max-height 0.3s ease; }
+    .accordion-content p { margin: 1rem 0; }
+
+    /* Usage Steps */
+    .steps { margin-top: 3rem; }
+    .step { display: flex; align-items: flex-start; margin-bottom: 1.5rem; }
+    .step-number { background: #4caf50; color: #fff; font-weight: 700; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; }
+
+    /* Footer */
+    footer { background: #1a202c; color: #a0aec0; text-align: center; padding: 1.5rem 0; margin-top: 4rem; }
+    footer a { color: #4caf50; }
+
+    /* Responsive Hero Title */
+    @media(max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">VideoFetch</div>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#samples">Supported Sites</a></li>
+      <li><a href="#usage">How To</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Download Videos from Anywhere!</h1>
+    <p>Universal Video Downloader supporting YouTube, Vimeo, Dailymotion, and more. Fast, free, and easy to use.</p>
+    <button onclick="document.getElementById('usage').scrollIntoView({ behavior: 'smooth' })">Get Started</button>
+  </section>
+
+  <div class="container">
+    <!-- Features -->
+    <section id="features">
+      <h2>Key Features</h2>
+      <div class="features">
+        <div class="feature-card">
+          <h3>Multi-Platform</h3>
+          <p>Supports over 100+ video platforms including popular sites like YouTube, Vimeo, Facebook, and more.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Audio & Video</h3>
+          <p>Download combined audio+video streams or choose separate formats to merge automatically.</p>
+        </div>
+        <div class="feature-card">
+          <h3>High Quality</h3>
+          <p>Pick your resolution from 144p all the way up to 4K UHD.</p>
+        </div>
+        <div class="feature-card">
+          <h3>No Limits</h3>
+          <p>Unlimited downloads with zero registration or signup.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sample Sites -->
+    <section id="samples" class="accordion">
+      <h2>Supported Sites</h2>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h4>YouTube</h4><span>+</span>
+        </div>
+        <div class="accordion-content">
+          <p>Download from YouTube at resolutions up to 4K, including playlists and channels.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h4>Vimeo</h4><span>+</span>
+        </div>
+        <div class="accordion-content">
+          <p>Grab high-quality Vimeo videos, even private links with proper access.</p>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h4>Dailymotion</h4><span>+</span>
+        </div>
+        <div class="accordion-content">
+          <p>Fast downloads from Dailymotion with multiple format options.</p>
+        </div>
+      </div>
+      <!-- Add more sites as needed -->
+    </section>
+
+    <!-- Usage Instructions -->
+    <section id="usage" class="steps">
+      <h2>How to Use</h2>
+      <div class="step">
+        <div class="step-number">1</div>
+        <div><strong>Paste URL:</strong> Copy the video link and paste it into the input box.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div><strong>Choose Format:</strong> Select the resolution and format (MP4, WEBM, etc.).</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div><strong>Download:</strong> Click 'Download' and enjoy your video offline instantly.</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>&copy; 2025 <a href="https://video.fetch" target="_blank">VideoFetch</a> - Made with ❤️</p>
+  </footer>
+
+  <script>
+    function toggleAccordion(header) {
+      const content = header.nextElementSibling;
+      const open = content.style.maxHeight;
+      document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+      document.querySelectorAll('.accordion-header span').forEach(s => s.textContent = '+');
+      if (!open) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        header.querySelector('span').textContent = '−';
+      }
+    }
+  </script>
+</body>
+</html>

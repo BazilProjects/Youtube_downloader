@@ -7,11 +7,16 @@ app = Flask(__name__)
 
 
 
+@app.route("/home")
+def home():
+    """Renders the informative homepage."""
+    return render_template("home2.html")
+
 @app.route("/")
 def index():
     return render_template("index.html")
 
-"""@app.route("/get_download_link", methods=["POST"])
+@app.route("/get_download_link", methods=["POST"])
 def get_download_link():
     data = request.get_json()
     video_url = data.get("url")
@@ -45,7 +50,9 @@ def get_download_link():
                 "formats": formats
             })
     except Exception as e:
-        return jsonify({"error": str(e)}), 500"""
+        return jsonify({"error": str(e)}), 500
+        
+"""
 
 
 
@@ -114,7 +121,7 @@ def get_download_link():
                 })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+"""
 
 if __name__ == "__main__":
     app.run(debug=True)
