@@ -4,6 +4,7 @@ import yt_dlp
 app = Flask(__name__)
 
 
+app.config['SERVER_NAME'] = '*'
 
 
 
@@ -124,6 +125,7 @@ def get_download_link():
 """
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(host='0.0.0.0')
 
 
