@@ -1,12 +1,14 @@
+<!-- about.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tixy Video Downloader</title>
+  <title>About Us • LECZ(U) Ltd</title>
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
   <link href="https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Reset & Base */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -301,106 +303,79 @@
       margin-right: 1rem;
       font-weight: bold;
     }
-    
   </style>
 </head>
 <body>
 
-  <nav>
-    <span class="nav-brand"><a href='/'>Tixy</a></span>
-    <span class="nav-toggle show" onclick="toggleNav()">☰</span>
-    <ul class="nav-menu" id="nav-menu">
-      <li><a href="/home">Home</a></li>
-      <li><a href="/about">About Us</a></li>
-      <li><a href="https://lecz.ltd">Parent Company</a></li>
-    </ul>
-  </nav>
-  <div class="container">
-      <section class="hero">
-        <div class="hero-content">
-          <h1>Download Videos, Fast & Ad-Free</h1>
-          <p>With Tixy, grab high-quality video downloads instantly. No ads, no fuss—just pure simplicity.</p>
-          <button class="btn" onclick="location.href='/'">Go to App</button>
-        </div>
-      </section>
-      <!-- Existing Hero or Card section ends here -->
-
-    <div class="container">
-      <!-- Features -->
-      <section id="features">
-        <h2>Key Features</h2>
-        <div class="features">
-          <div class="feature-card">
-            <h3>Multi-Platform</h3>
-            <p>Supports over 100+ video platforms including popular sites like YouTube, Vimeo, Facebook, Instagram, TikTok, and more.</p>
+    <nav>
+        <span class="nav-brand"><a href='/'>Tixy</a></span>
+        <span class="nav-toggle show" onclick="toggleNav()">☰</span>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="/home">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="https://lecz.ltd">Parent Company</a></li>
+        </ul>
+      </nav>
+    <div class='container'>
+      <div class="max-w-5xl mx-auto px-4 py-10 text-gray-800 font-sans">
+        <h1 class="text-4xl font-bold text-center mb-6">About <span class="text-blue-600">LECZ(U) Ltd</span></h1>
+        <p class="text-lg text-center mb-10">
+          LECZ(U) Limited is a global software development and AI solutions company headquartered in <strong>Gulu City, Uganda</strong>. 
+          We specialize in cutting-edge technologies to empower businesses worldwide.
+        </p>
+      
+        <h2 class="text-2xl font-semibold mb-4">Our Services</h2>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+          <div class="bg-white shadow-md rounded-lg p-4 border-t-4 border-blue-600">
+            <h3 class="font-semibold text-lg">Machine Learning & AI</h3>
+            <p class="text-sm mt-2">Advanced ML, DL, and AI-powered solutions.</p>
           </div>
-          <div class="feature-card">
-            <h3>Audio & Video</h3>
-            <p>Download combined audio+video streams or choose separate formats to merge automatically.</p>
+          <div class="bg-white shadow-md rounded-lg p-4 border-t-4 border-green-600">
+            <h3 class="font-semibold text-lg">Full-stack Development</h3>
+            <p class="text-sm mt-2">Web apps using Python, Django, Flask, FastAPI.</p>
           </div>
-          <div class="feature-card">
-            <h3>High Quality</h3>
-            <p>Pick your resolution from 144p all the way up to 4K UHD.</p>
+          <div class="bg-white shadow-md rounded-lg p-4 border-t-4 border-yellow-500">
+            <h3 class="font-semibold text-lg">Frontend & Scripting</h3>
+            <p class="text-sm mt-2">JavaScript, Go, HTML, and CSS expertise.</p>
           </div>
-          <div class="feature-card">
-            <h3>No Limits</h3>
-            <p>Unlimited downloads with zero registration or signup.</p>
+          <div class="bg-white shadow-md rounded-lg p-4 border-t-4 border-purple-600">
+            <h3 class="font-semibold text-lg">Database Management</h3>
+            <p class="text-sm mt-2">PostgreSQL and Apache Cassandra support.</p>
           </div>
-        </div>
-      </section>
-
-      <!-- Supported Sites -->
-      <section id="supported">
-        <h2>Supported Sites</h2>
-        <div class="site-grid">
-          <div class="site-card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgliJ7D4iSASNLkZIMCmN6ulNfLUkjObKbUA&s" alt="Instagram">
-            <h4>Instagram</h4>
+          <div class="bg-white shadow-md rounded-lg p-4 border-t-4 border-red-500">
+            <h3 class="font-semibold text-lg">Containerization & DevOps</h3>
+            <p class="text-sm mt-2">Docker, Nginx, CI/CD pipelines.</p>
           </div>
-          <div class="site-card">
-            <img src="https://images.unsplash.com/photo-1611605698323-b1e99cfd37ea?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGlrdG9rJTIwbG9nb3xlbnwwfHwwfHx8MA%3D%3D" alt="TikTok">
-            <h4>TikTok</h4>
-          </div>
-          <div class="site-card">
-            <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2023/11/25-1.png" alt="YouTube">
-            <h4>YouTube</h4>
-          </div>
-          <div class="site-card">
-            <img src="https://img.freepik.com/free-vector/new-twitter-logo-x-icon-black-background_1017-45427.jpg?semt=ais_hybrid&w=740" alt="X">
-            <h4>X</h4>
+          <div class="bg-white shadow-md rounded-lg p-4 border-t-4 border-indigo-600">
+            <h3 class="font-semibold text-lg">IT Consulting</h3>
+            <p class="text-sm mt-2">Strategic advice for tech growth and innovation.</p>
           </div>
         </div>
-      </section>
-
-      <!-- Usage Instructions -->
-      <section id="usage" class="steps">
-        <h2>How to Use</h2>
-        <div class="step">
-          <div class="step-number">1</div>
-          <div><strong>Paste URL:</strong> Copy the video link and paste it into the input box.</div>
+      
+        <h2 class="text-2xl font-semibold mb-4">Vision & Mission</h2>
+        <div class="bg-gray-100 p-6 rounded-lg mb-10">
+          <p class="mb-4"><strong>Vision:</strong> To become a global leader in technology innovation, shaping the future through AI-powered solutions that transform industries and enhance everyday life.</p>
+          <p><strong>Mission:</strong> To deliver innovative software solutions that solve complex problems, empower businesses, and drive technological progress with a focus on sustainability and user-friendly design.</p>
         </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div><strong>Choose Format:</strong> Select the resolution and format (MP4, WEBM, etc.).</div>
+      
+        <h2 class="text-2xl font-semibold mb-4">Contact Information</h2>
+        <div class="bg-white p-6 rounded-lg shadow-sm border">
+          <p><strong>Email:</strong> <a href="mailto:sales@lecz.ltd" class="text-blue-600 hover:underline">sales@lecz.ltd</a></p>
+          <p><strong>Phone:</strong> +256 702 317 807</p>
+          <p><strong>Address:</strong> Gulu City, Uganda</p>
         </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div><strong>Download:</strong> Click 'Download' and enjoy your video offline instantly.</div>
-        </div>
-      </section>
+      </div>
     </div>
-  </div>
-
+      
   <footer class="footer">
-    &copy; 2025 Lecz(U) Ltd • <a href="https://lecz.ltd">Lecz(U) Ltd</a>
+    &copy; 2025 LECZ(U) Ltd • <a href="https://lecz.ltd" target="_blank">Visit Official Site</a>
   </footer>
-  
-
   <script>
     function toggleNav() {
-      document.getElementById('nav-menu').classList.toggle('show');
+      const navMenu = document.getElementById('nav-menu');
+      navMenu.classList.toggle('show');
     }
   </script>
-
+  
 </body>
 </html>

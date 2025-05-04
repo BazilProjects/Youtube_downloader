@@ -4,18 +4,23 @@ import yt_dlp
 app = Flask(__name__)
 
 
-app.config['SERVER_NAME'] = '*'
+#app.config['SERVER_NAME'] = '*'
 
 
 
 @app.route("/home")
 def home():
     """Renders the informative homepage."""
-    return render_template("home2.html")
+    return render_template("home.html")
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 
 @app.route("/get_download_link", methods=["POST"])
 def get_download_link():
@@ -125,8 +130,8 @@ def get_download_link():
 """
 
 if __name__ == "__main__":
-    #app.run(debug=True)
+    app.run(debug=True)
     #app.run(host='0.0.0.0')
-    app.run(host="0.0.0.0", port=5000)
+    #app.run(host="0.0.0.0", port=5000)
 
 

@@ -2,288 +2,256 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Video Downloader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tixy Video Downloader</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Global Styles */
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f7f6;
-      color: #333;
-      margin: 0;
-      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    h2 {
-      text-align: center;
-      color: #4CAF50;
-      margin-top: 30px;
-    }
-    /* Navigation Bar */
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
     nav {
-      background-color: #333;
-      padding: 10px 0;
-      text-align: center;
+      background: #2c3e50;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      position: relative;
     }
-    nav a {
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      font-size: 18px;
-      transition: background-color 0.3s ease;
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2196F3;
     }
-    nav a:hover {
-      background-color: #4CAF50;
-    }
-    /* Container Styles */
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    /* Input and Button Styles */
-    #url {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      position: absolute;
+      right: 1rem;
+      top: 0.75rem;
     }
-    button:hover {
-      background-color: #45a049;
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      justify-content: flex-end;
     }
-    /* Video Player Styles */
-    #video-player {
-      margin-top: 20px;
+    .nav-menu li a {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background 0.3s;
+      color: #cfd8dc;
+    }
+    .nav-menu li a:hover {
+      background: #2196F3;
+      color: #fff;
+    }
+
+    /* Card Container */
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    /* Glassmorphic Card */
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .card:hover { transform: translateY(-8px); }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: #2196F3; /* Blue accent */
+    }
+    p.subtitle {
+      font-weight: 500;
+      color: #4a5568;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Input & Button */
+    .url-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s;
+    }
+    .url-input:focus { border-color: #9C27B0; }
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: linear-gradient(90deg, #2196F3, #9C27B0);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-bottom: 1rem;
+    }
+    .btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+    /* Results & Preview */
+    #result, #video-player, #related-searches {
       display: none;
+      margin-top: 1rem;
+      text-align: left;
     }
-    #video-player h3 {
-      margin-bottom: 10px;
-      color: #333;
+    #download-links ul, #related-searches ul { padding-left: 1.25rem; }
+    #download-links li, #related-searches li { margin-bottom: 0.5rem; }
+    #download-links a { color: #2196F3; font-weight: 500; }
+    #related-searches a { color: #9C27B0; font-weight: 500; }
+    #video-player video {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 0.5rem;
     }
-    /* Result Section Styles */
-    #result {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      display: none;
-    }
-    #result h3 {
-      margin-top: 0;
-      color: #333;
-    }
-    ul {
-      padding-left: 20px;
-      list-style-type: none;
-    }
-    ul li {
-      margin: 10px 0;
-    }
-    a {
-      text-decoration: none;
-      color: #4CAF50;
-      font-weight: bold;
-      display: inline-block;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #45a049;
-    }
-    .loading {
-      font-style: italic;
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
       color: #888;
     }
-    /* Related Searches Styles */
-    #related-searches {
-      margin-top: 20px;
-      display: none;
-    }
-    #related-searches h3 {
-      margin-bottom: 10px;
-    }
-    /* Footer Styles */
-    footer {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 10px 0;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-    }
-    footer a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    /* Responsive Design */
-    @media (max-width: 600px) {
-      .container {
-        padding: 15px;
+    .footer a { color: #2196F3; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-menu {
+        flex-direction: column;
+        display: none;
+        margin-top: 0.5rem;
       }
-      h2 {
-        font-size: 20px;
-      }
-      button {
-        font-size: 14px;
-      }
-      #url {
-        font-size: 14px;
-      }
+      .nav-menu.show { display: flex; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <span class="nav-brand"><a href='/'>Tixy</a></span>
+    <span class="nav-toggle show" onclick="toggleNav()">☰</span>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="https://lecz.ltd">Parent Company</a></li>
+    </ul>
   </nav>
 
-  <!-- Main Content -->
-  <div class="container">
-    <h2>YouTube Video Downloader</h2>
-    <input type="text" id="url" placeholder="Paste YouTube link" />
-    <button onclick="getDownloadLink()">Get Download Links</button>
+  <div class="content" id="home">
+    <div class="card">
+      <h1>Tixy</h1>
+      <p class="subtitle">Ad-Free, Quality Video Downloads</p>
+      <input class="url-input" type="text" id="url" placeholder="Paste video link here…" />
+      <button class="btn" onclick="getDownloadLink()">Fetch Links</button>
 
-    <!-- Video Player Section -->
-    <div id="video-player">
-      <h3>Video Preview:</h3>
-      <video id="player" controls width="100%" src=""></video>
-    </div>
+      <div id="result">
+        <h3>Download Links</h3>
+        <div id="download-links"><p>Loading…</p></div>
+      </div>
 
-    <!-- Result Section -->
-    <div id="result">
-      <div id="download-links"></div>
-    </div>
+      <div id="video-player">
+        <h3>Preview</h3>
+        <video id="player" controls></video>
+      </div>
 
-    <!-- Related Searches Section -->
-    <div id="related-searches">
-      <h3>Related Searches:</h3>
-      <ul id="related-list"></ul>
+      <div id="related-searches">
+        <h3>Related Searches</h3>
+        <ul id="related-list"></ul>
+      </div>
+
+      <div class="footer">
+        &copy; 2025 Lecz(U) LTD• <a href="https://lecz.ltd">LECZ(U) LTD</a>
+      </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 <a href="https://lecz.ltd" target="_blank">LECZ</a> Ltd. All Rights Reserved.</p>
-  </footer>
-
   <script>
-    async function getDownloadLink() {
-      const url = document.getElementById("url").value;
-      const resultDiv = document.getElementById("result");
-      const downloadLinksDiv = document.getElementById("download-links");
-      const videoPlayerDiv = document.getElementById("video-player");
-      const player = document.getElementById("player");
-      const relatedDiv = document.getElementById("related-searches");
-      const relatedList = document.getElementById("related-list");
+    function toggleNav() {
+      document.getElementById('nav-menu').classList.toggle('show');
+    }
 
-      // Reset UI sections
-      resultDiv.style.display = 'block';
-      downloadLinksDiv.innerHTML = '<p class="loading">Fetching download links...</p>';
-      videoPlayerDiv.style.display = 'none';
-      relatedDiv.style.display = 'none';
-      relatedList.innerHTML = '';
+    async function getDownloadLink() {
+      const url = document.getElementById("url").value.trim();
+      if (!url) return alert("Please paste a video URL.");
+
+      // Show loading UI
+      document.getElementById("result").style.display = "block";
+      document.getElementById("download-links").innerHTML = "<p>Loading…</p>";
+      document.getElementById("video-player").style.display = "none";
+      document.getElementById("related-searches").style.display = "none";
 
       try {
-        const response = await fetch("/get_download_link", {
+        const resp = await fetch("/get_download_link", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url }),
+          body: JSON.stringify({ url })
         });
-        const data = await response.json();
+        const data = await resp.json();
 
-        // Check if this is a playlist (by presence of "playlist_title")
-        if (data.playlist_title && data.entries) {
-          let html = `<h3>Playlist: ${data.playlist_title}</h3>`;
-          data.entries.forEach(entry => {
-            html += `<h4>${entry.title}</h4><ul>`;
-            entry.formats.forEach(f => {
-              const sizeMB = f.filesize ? (f.filesize / 1024 / 1024).toFixed(2) + " MB" : "unknown size";
-              html += `
-                <li>
-                  <a href="${f.url}" target="_blank" download onclick="playVideo('${f.url}')">
-                    Download (${f.resolution || 'unknown'} - ${sizeMB})
-                  </a>
-                </li>
-              `;
-            });
-            html += `</ul>`;
-          });
-          downloadLinksDiv.innerHTML = html;
-        } else if (data.title && data.formats) {
-          // Single video response
-          let html = `<h3>${data.title}</h3><ul>`;
+        // Populate download links
+        if (data.formats && data.formats.length) {
+          let listHtml = "<ul>";
           data.formats.forEach(f => {
-            const sizeMB = f.filesize ? (f.filesize / 1024 / 1024).toFixed(2) + " MB" : "unknown size";
-            html += `
-              <li>
-                <a href="${f.url}" target="_blank" download onclick="playVideo('${f.url}')">
-                  Download (${f.resolution || 'unknown'} - ${sizeMB})
-                </a>
-              </li>
-            `;
+            listHtml += `<li>
+              <a href="${f.url}" target="_blank" download onclick="showPreview('${f.url}')">
+                ${f.resolution || "unknown"} (${(f.filesize/1024/1024).toFixed(2)} MB)
+              </a>
+            </li>`;
           });
-          html += "</ul>";
-          downloadLinksDiv.innerHTML = html;
+          listHtml += "</ul>";
+          document.getElementById("download-links").innerHTML = listHtml;
         } else {
-          downloadLinksDiv.innerText = "No downloadable formats found.";
+          document.getElementById("download-links").innerHTML = "<p>No links found.</p>";
         }
 
-        // Set up video player:
-        // If the API returns a player URL, use that; otherwise, use the first format's URL.
-        if (data.player_url) {
-          player.src = data.player_url;
-          videoPlayerDiv.style.display = 'block';
-        } else if (data.formats && data.formats.length > 0) {
-          player.src = data.formats[0].url;
-          videoPlayerDiv.style.display = 'block';
-        } else if (data.entries && data.entries.length > 0 && data.entries[0].formats.length > 0) {
-          // For playlists, default to the first video's first format.
-          player.src = data.entries[0].formats[0].url;
-          videoPlayerDiv.style.display = 'block';
+        if (data.related && data.related.length) {
+          const relList = data.related.map(r =>
+            `<li><a href="${r.url}" target="_blank">${r.title}</a></li>`
+          ).join("");
+          document.getElementById("related-list").innerHTML = relList;
+          document.getElementById("related-searches").style.display = "block";
         }
 
-        // Display related searches if provided
-        if (data.related && data.related.length > 0) {
-          let relatedHtml = "";
-          data.related.forEach(item => {
-            relatedHtml += `<li><a href="${item.url}" target="_blank">${item.title}</a></li>`;
-          });
-          relatedList.innerHTML = relatedHtml;
-          relatedDiv.style.display = 'block';
-        }
       } catch (err) {
-        downloadLinksDiv.innerText = "Error: " + err.message;
+        document.getElementById("download-links").innerHTML =
+          `<p style="color:red;">Error: ${err.message}</p>`;
       }
     }
 
-    // Optional: Update video player when a download link is clicked.
-    function playVideo(url) {
-      const videoPlayerDiv = document.getElementById("video-player");
-      const player = document.getElementById("player");
-      player.src = url;
-      videoPlayerDiv.style.display = 'block';
+    function showPreview(src) {
+      const vid = document.getElementById("player");
+      vid.src = src;
+      document.getElementById("video-player").style.display = "block";
     }
   </script>
 
