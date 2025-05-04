@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask import  url_for, redirect
 import yt_dlp
 
 app = Flask(__name__)
@@ -15,7 +16,14 @@ def home():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    error = request.args.get('error')
+    return render_template("index.html",error=error)
+
+
+@app.route("/second_trial")
+def index2():
+    return render_template("index2.html")
+
 
 @app.route("/about")
 def about():
@@ -58,12 +66,12 @@ def get_download_link():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
         
-"""
 
 
 
-@app.route("/get_download_link", methods=["POST"])
-def get_download_link():
+
+@app.route("/get_download_link_2", methods=["POST"])
+def get_download_link_2():
     data = request.get_json()
     video_url = data.get("url")
     
@@ -127,10 +135,22 @@ def get_download_link():
                 })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-"""
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return redirect(url_for('index', error='404'))
+
+@app.errorhandler(403)
+def forbidden(e):
+    return redirect(url_for('index', error='403'))
+
+@app.errorhandler(500)
+def server_error(e):
+    return redirect(url_for('index', error='500'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
     #app.run(host='0.0.0.0')
     #app.run(host="0.0.0.0", port=5000)
 

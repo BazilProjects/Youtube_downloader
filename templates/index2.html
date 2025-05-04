@@ -169,7 +169,7 @@
 
   <div class="content" id="home">
     <div class="card">
-      <h1>Tixy (Option 1- Most Stable)</h1>
+      <h1>Tixy(Unstable Can Have Audioless Videos)</h1>
       <p class="subtitle">Ads-Interruption-Free, Quality Video Downloads</p>
       <input class="url-input" type="text" id="url" placeholder="Paste video link here…" />
       <button class="btn" onclick="getDownloadLink()">Fetch Links</button>
@@ -192,9 +192,10 @@
       <div class="footer">
         &copy; 2025 Lecz(U) LTD• <a href="https://lecz.ltd">LECZ(U) LTD</a>
       </div>
-      <a class="btn"href='/second_trial'>Try Download Option 2</a>
+      <a class="btn"href='/'>Option 1 (Most Stable)</a>
 
     </div>
+
   </div>
 
   <script>
@@ -213,7 +214,7 @@
       document.getElementById("related-searches").style.display = "none";
 
       try {
-        const resp = await fetch("/get_download_link", {
+        const resp = await fetch("/get_download_link_2", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url })
@@ -292,6 +293,5 @@
             }).showToast();
         }
     </script>
-
 </body>
 </html>
