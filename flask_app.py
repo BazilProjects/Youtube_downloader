@@ -326,11 +326,21 @@ if __name__ == "__main__":
 
 '''
 
+
+import os
+
 from flask import Flask, request, jsonify, render_template
 from flask import url_for, redirect
 import yt_dlp
 
 app = Flask(__name__)
+
+
+
+HOME = os.path.expanduser("~")
+
+# Example for a .deb Chrome install:
+CHROME_PROFILE = os.path.join(HOME, ".config", "google-chrome", "Default")
 
 @app.route("/home")
 def home():
@@ -359,7 +369,7 @@ def get_download_link():
         return jsonify({"error": "No URL provided"}), 400
 
     ydl_opts = {
-        'cookies_from_browser': 'chrome',   # ← exact API name
+        'cookies_from_browser': f'chrome:{CHROME_PROFILE}',
         'listformats': True,
         'quiet': False,
         'skip_download': True,
@@ -396,7 +406,7 @@ def get_download_link_2():
         return jsonify({"error": "No URL provided"}), 400
 
     ydl_opts = {
-        'cookies_from_browser': 'chrome',   # ← exact API name
+        'cookies_from_browser': f'chrome:{CHROME_PROFILE}',
         'listformats': True,
         'quiet': False,
         'skip_download': True,
