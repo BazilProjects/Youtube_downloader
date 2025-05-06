@@ -336,11 +336,8 @@ import yt_dlp
 app = Flask(__name__)
 
 
-
-HOME = os.path.expanduser("~")
-
 # Example for a .deb Chrome install:
-CHROME_PROFILE = os.path.join(HOME, ".config", "google-chrome", "Default")
+CHROME_PROFILE =  os.path.expanduser("~/.config/google-chrome/Default")
 
 @app.route("/home")
 def home():
