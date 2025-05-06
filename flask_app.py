@@ -142,7 +142,7 @@ def server_error(e):
     return redirect(url_for('index', error='500'))
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(host="0.0.0.0", port=5000)
     #app.run(host='0.0.0.0')
     #app.run(host="0.0.0.0", port=5000)
 
